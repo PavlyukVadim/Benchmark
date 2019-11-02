@@ -19,7 +19,7 @@ const data1 = [
     city: 'Shaoshan' },
   { name: 'Rene Descartes',
     birth: new Date('1596-03-31'),
-    city: 'La Haye en Touraine' }
+    city: 'La Haye en Touraine' },
 ];
 
 const data2 = [
@@ -56,7 +56,7 @@ function buildGetter(proto, fieldName, fieldType, fieldIndex) {
         return new Date(this[fieldIndex]);
       }
     });
-  } else if (typeof(fieldType) === 'function') {
+  } else if (typeof fieldType === 'function') {
     Object.defineProperty(proto, fieldName, { get: fieldType });
   } else {
     Object.defineProperty(proto, fieldName, {
@@ -67,11 +67,12 @@ function buildGetter(proto, fieldName, fieldType, fieldIndex) {
   }
 }
 
-data2.forEach(person => person.__proto__ = Person.prototype);
+data2.forEach(person => Object.setPrototypeOf(person, Person.prototype));
+//data2.forEach(person => person.__proto__ = Person.prototype);
 
 // Define query
 
-const query = (person) => (
+const query = person => (
   person.name !== '' &&
   person.age > 18 &&
   person.city === 'Rome'
