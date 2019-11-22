@@ -14,9 +14,9 @@ const forBasedReverse = () => {
   const halfOFLength = length / 2
   for (let i = 0, j = length - 1; i < halfOFLength; i++) {
     const curr = arr[i]
-    arr[i] = arr[j - i]
-    arr[j - i] = curr
-    j--
+    arr[i] = arr[j]
+    arr[j] = curr
+    j = j - 1
   }
   return arr
 }
